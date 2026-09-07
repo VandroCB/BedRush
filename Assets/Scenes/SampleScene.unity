@@ -132,6 +132,8 @@ GameObject:
   - component: {fileID: 16836831}
   - component: {fileID: 16836830}
   - component: {fileID: 16836829}
+  - component: {fileID: 16836834}
+  - component: {fileID: 16836835}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -292,6 +294,46 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &16836834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16836828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a30b420bf989481f83222e8649316d1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Flashlight
+  range: 4
+  angle: 60
+  intensity: 1.4
+  color: {r: 1, g: 0.96, b: 0.8, a: 1}
+  damagePerSecond: 25
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  beam: {fileID: 0}
+--- !u!114 &16836835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16836828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d440cc7dc89b49cc9711cbb5684bf011, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthBar
+  offset: {x: 0, y: 0.7}
+  size: {x: 1, y: 0.12}
+  sortingOrder: 100
+  fillColor: {r: 0.85, g: 0.15, b: 0.15, a: 1}
+  backColor: {r: 0, g: 0, b: 0, a: 0.7}
+  hideWhenFull: 0
+  hideOnDeath: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,7 +509,7 @@ MonoBehaviour:
     rid: 8163335772931358733
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.06
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: 00000000

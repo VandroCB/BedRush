@@ -61,13 +61,24 @@ public class Entity : MonoBehaviour
             Facing = direction.normalized;
     }
 
-    /// <summary>Aplica daño. Lo ignora si esta muerta o dentro de los i-frames.</summary>
-    public void TakeDamage(int amount, Entity source = null)
+    /// <summary>
+    /// Aplica daño. Lo ignora si esta muerta o dentro de los i-frames.
+    /// El daño continuo (la linterna) pasa ignoreInvulnerability para marcar su propio ritmo:
+    /// si no, seria el invulnerabilityTime de la victima quien decidiria cuanto quema la linterna.
+    /// </summary>
+    public void TakeDamage(int amount, Entity source = null, bool ignoreInvulnerability = false)
     {
-        if (_dead || amount <= 0 || Time.time < _invulnerableUntil)
+        if (_dead || amount <= 0)
             return;
 
-        _invulnerableUntil = Time.time + invulnerabilityTime;
+        if (!ignoreInvulnerability)
+        {
+            if (Time.time < _invulnerableUntil)
+                return;
+
+            _invulnerableUntil = Time.time + invulnerabilityTime;
+        }
+
         Health = Mathf.Max(0, Health - amount);
 
         Damaged?.Invoke(this, amount);
