@@ -1,0 +1,89 @@
+# ============================================================================
+#  GAME CONFIG - every global number of the game lives here
+#
+#  Format:   Key = value        (comments must be on their own line, start with #)
+#  Units:    distances in PIXELS (keys ending in Px), speeds in PIXELS PER SECOND,
+#            times in SECONDS, angles in DEGREES, battery in PERCENT (0-100).
+#            Colors are hex RRGGBB (no #).
+#  Decimals: always use a dot (0.7), never a comma.
+#  Applying: this file is read when you press Play. Stop, edit, Play again.
+#  Location: Assets/Resources/GameConfig.txt  (do not move it out of Resources)
+# ============================================================================
+
+# ----- World -----------------------------------------------------------------
+# Must match "Pixels Per Unit" of your sprite imports. 32 -> the 32px player is exactly 1 Unity unit.
+PixelsPerUnit = 32
+
+# ----- Player ----------------------------------------------------------------
+PlayerSpeedPx = 30
+PlayerMaxLives = 8
+PlayerStartLives = 8
+# Seconds the player can't be hurt again after a hit (stops a monster draining all hearts instantly)
+InvulnerabilitySeconds = 1.5
+# Lives restored by a heart power-up
+HeartPickupLives = 1
+
+# ----- Flashlight ------------------------------------------------------------
+# Normal beam (reveals things, does not scare monsters)
+BeamAngleDeg = 60
+BeamRangePx = 32
+# Focused beam (hold right click): thin line that blinds the first monster it hits
+FocusAngleDeg = 4
+FocusRangePx = 64
+# Thickness of the invisible hit-test used for the focused beam
+FocusBeamWidthPx = 8
+# Soft edge of the cone: inner angle = outer angle * this ratio (1 = hard edge)
+BeamInnerAngleRatio = 0.7
+# How fast the beam morphs between normal and focused (higher = faster)
+BeamTransitionSpeed = 12
+FlashlightColor = FFF4D6
+FlashlightIntensity = 1
+
+# ----- Battery ---------------------------------------------------------------
+BatteryStartPercent = 100
+# Percent lost per second
+BatteryDrainNormalPerSec = 1
+BatteryDrainFocusPerSec = 4
+# Percent added by a battery power-up
+BatteryPickupPercent = 25
+
+# ----- Lantern power-up ------------------------------------------------------
+LanternDuration = 20
+LanternRadiusPx = 32
+LanternColor = FFE9A8
+LanternIntensity = 0.9
+
+# ----- Darkness (the "shadow" look of everything not lit) --------------------
+# Midnight blue. Darker: 0B0B30 - lighter: 2A2A8A
+AmbientColor = 191970
+AmbientIntensity = 1
+
+# ----- Monsters --------------------------------------------------------------
+# Hearts removed per hit
+MonsterDamage = 1
+# Speed tiers (pick one per monster prefab in the Inspector)
+MonsterSpeedSlowPx = 20
+MonsterSpeedNormalPx = 30
+MonsterSpeedFastPx = 40
+# Walking speed while patrolling, as a fraction of the tier speed
+MonsterPatrolSpeedFactor = 0.6
+# How far a monster can notice the player (needs a clear line of sight)
+MonsterDetectRadiusPx = 192
+# Seconds a monster keeps hunting the last place it saw the player
+MonsterLoseSightSeconds = 1.5
+# Seconds a blinded monster walks back along its own steps (after the beam leaves it)
+MonsterBlindSeconds = 2.5
+# Breadcrumb spacing and max count used to remember "its own steps"
+MonsterTrailSpacingPx = 16
+MonsterTrailMaxPoints = 64
+MonsterMaxHealth = 3
+# Damage per second the focused beam does. 0 = the beam only blinds and repels.
+# Set e.g. 1 to make the focused beam also kill monsters (MonsterMaxHealth / this = seconds to kill).
+FocusDamagePerSecond = 0
+
+# ----- Camera ----------------------------------------------------------------
+# The player can move inside this box without the camera moving
+CameraDeadZoneWidthPx = 8
+CameraDeadZoneHeightPx = 6
+# How snappily the camera catches up (0 = instant)
+CameraFollowSharpness = 2

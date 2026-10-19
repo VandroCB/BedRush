@@ -1,40 +1,54 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 5f;
+    //[SerializeField] private float speed = 5f;
+    public bool MovementEnabled { get; set; } = true;
 
-    private Rigidbody2D rb;
-    private Vector2 movement;
+    private Rigidbody2D _rigidbody;
+    private Vector2 _movement;
+
+
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        _rigidbody = GetComponent<Rigidbody2D>();
+
+        // Top-down setup. Collisions with walls come for free from the Rigidbody2D + Collider2D.
+        _rigidbody.gravityScale = 0f;
+        _rigidbody.freezeRotation = true;
+        _rigidbody.interpolation = RigidbodyInterpolation2D.Interpolate;
+        _rigidbody.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
     }
 
     private void Update()
     {
-        float horizontal = 0f;
-        float vertical = 0f;
+        _movement = Vector2.zero;
 
-        if (Keyboard.current.aKey.isPressed)
-            horizontal -= 1f;
+        //added for end level logic 
+        Keyboard keyboard = Keyboard.current;
+        if (!MovementEnabled || keyboard == null)
+            return;
 
-        if (Keyboard.current.dKey.isPressed)
-            horizontal += 1f;
+        if (keyboard.wKey.isPressed)
+            _movement.y += 1;
 
-        if (Keyboard.current.sKey.isPressed)
-            vertical -= 1f;
+        if (keyboard.sKey.isPressed)
+            _movement.y -= 1;
 
-        if (Keyboard.current.wKey.isPressed)
-            vertical += 1f;
+        if (keyboard.aKey.isPressed)
+            _movement.x -= 1;
+
+        if (keyboard.dKey.isPressed)
+            _movement.x += 1;
 
         movement = new Vector2(horizontal, vertical).normalized;
     }
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = movement * moveSpeed;
+        _rigidbody.linearVelocity = _movement * GameConfig.PlayerSpeed;
     }
 }
